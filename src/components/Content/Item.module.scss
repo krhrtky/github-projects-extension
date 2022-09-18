@@ -1,0 +1,10 @@
+@import "@primer/css/utilities/colors";
+
+.item {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover {
+    background-color: var(--color-accent-subtle);
+  }
+}
