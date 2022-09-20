@@ -7,7 +7,7 @@ export const App = () => {
   const [value, ] = menuOpened;
 
   return (
-    <div style={style.app}>
+    <div class={style.app}>
       { value() ? <Content /> : <Menu /> }
     </div>
   );
