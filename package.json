@@ -1,7 +1,7 @@
 {
   "name": "github-projects-extension",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +14,7 @@
     "@crxjs/vite-plugin": "1.0.14",
     "@testing-library/jest-dom": "5.16.5",
     "@types/primer__octicons": "17.5.0",
+    "archiver": "5.3.1",
     "happy-dom": "6.0.4",
     "jest-extended": "3.1.0",
     "sass": "1.54.9",

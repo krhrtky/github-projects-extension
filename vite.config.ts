@@ -1,11 +1,12 @@
 import { defineConfig } from "vite";
 import { crx, defineManifest } from "@crxjs/vite-plugin";
 import solidPlugin from "vite-plugin-solid";
+import info from "./package.json";
 
 const manifest = defineManifest({
   manifest_version: 3,
   name: "GitHub projects extension",
-  version: "0.0.1",
+  version: info.version,
   permissions: [],
   content_scripts: [
     {
