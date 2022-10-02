@@ -7,7 +7,7 @@ const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 const ITEM_ID = process.env.ITEM_ID;
 
 const execute = async () => {
-  const response = await fetch(
+  const authResult = await fetch(
     "https://oauth2.googleapis.com/token",
     {
       method: "POST",
@@ -23,10 +23,14 @@ const execute = async () => {
     },
   );
 
-  const authToken = await response.json();
+  if (!authResult.ok) {
+    throw new Error(`Oauth failed. reason: ${await authResult.text()}`);
+  }
+
+  const authToken = await authResult.json();
   const file = fs.createReadStream("/tmp/dist.zip", "utf-8");
 
-  const result = await fetch(
+  const uploadResult = await fetch(
     `https://www.googleapis.com/upload/chromewebstore/v1.1/items/${ITEM_ID}`,
     {
       method: "PUT",
@@ -38,7 +42,16 @@ const execute = async () => {
     },
   );
 
-  console.log(await result.json());
+  if (uploadResult.ok) {
+    const result = await uploadResult.json();
+
+    if (result.uploadState !== "SUCCESS") {
+      throw new Error(`Extension upload failed. reason: ${result.itemError}`);
+    }
+
+  } else {
+    throw new Error(`Extension upload failed. reason: ${await uploadResult.json()}`);
+  }
 }
 
 execute().then(() => {});
